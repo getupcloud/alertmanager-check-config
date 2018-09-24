@@ -1,8 +1,10 @@
 FROM alpine
 
-WORKDIR /
+RUN mkdir -p /config
 
-COPY run.sh /
+WORKDIR /config
+
+COPY run.sh /config/
 
 RUN apk add nmap-ncat bash --no-cache && \
     chmod +x run.sh
@@ -10,3 +12,5 @@ RUN apk add nmap-ncat bash --no-cache && \
 USER 1001
 
 CMD ["./run.sh"]
+
+
