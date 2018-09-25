@@ -7,8 +7,6 @@ RESPONSE_ER="HTTP/1.1 400 Config Not Found\r\nConnection: close\r\n\r\n${2:-"Con
 
 which ncat && NC=ncat || NC=nc
 
-oc export cm/alertmanager -o yaml > /config/alertmanager.yaml
-
 while true; do
     $NC -l 8080 --sh-exec "grep 'name: pager_duty' -A 4 /config/alertmanager.yaml | grep 'service_key: .\+' -q && echo -ne '${RESPONSE_OK}' || echo -ne '${RESPONSE_ER}'"
 done
